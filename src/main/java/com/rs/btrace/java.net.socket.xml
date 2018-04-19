@@ -1,0 +1,62 @@
+<btrace-probes namespace="java.net.socket">
+
+ <probe name="server-socket-creator">
+    <map>
+        <clazz>sun.nio.ch.ServerSocketChannelImpl</clazz>
+        <method>socket</method>
+        <location>
+           <value>RETURN</value>
+        </location>
+    </map>
+ </probe>
+
+ <probe name="bind">
+    <map>
+       <clazz>sun.nio.ch.ServerSocketChannelImpl</clazz>
+       <method>bind</method>
+       <type>void (java.net.SocketAddress, int)</type>
+    </map>
+    <map>
+       <clazz>java.net.ServerSocket</clazz>
+       <method>bind</method>
+       <type>void (java.net.SocketAddress, int)</type>
+    </map>
+ </probe>
+
+ <probe name="bind-return">
+    <map>
+       <clazz>sun.nio.ch.ServerSocketChannelImpl</clazz>
+       <method>bind</method>
+       <type>void (java.net.SocketAddress, int)</type>
+       <location>
+          <value>RETURN</value>
+       </location>
+    </map>
+    <map>
+       <clazz>java.net.ServerSocket</clazz>
+       <method>bind</method>
+       <type>void (java.net.SocketAddress, int)</type>
+       <location>
+          <value>RETURN</value>
+       </location>
+    </map>
+ </probe>
+
+ <probe name="accept-return">
+   <map>
+       <clazz>java.net.ServerSocket</clazz>
+       <method>accept</method>
+       <location>
+          <value>RETURN</value>
+       </location>
+   </map>
+   <map>
+       <clazz>sun.nio.ch.ServerSocketChannelImpl</clazz>
+       <method>accept</method>
+       <location>
+          <value>RETURN</value>
+       </location>
+   </map>
+ </probe>
+
+</btrace-probes>
